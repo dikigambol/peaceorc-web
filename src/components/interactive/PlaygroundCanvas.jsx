@@ -1,7 +1,76 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import confetti from 'canvas-confetti'
-import { RotateCcw, Volume2, VolumeX, Cpu, Layers, Workflow, Zap } from 'lucide-react'
+import { RotateCcw, Volume2, VolumeX, Cpu, Layers, Workflow, Zap, Bot, Palette, Server, Terminal } from 'lucide-react'
 import { playgroundPhysicsBadges, devFrameworkSteps } from '../../data/portfolioData'
+
+const MOBILE_STACK_CATEGORIES = [
+  {
+    title: "AI & Modern Accelerators",
+    icon: Bot,
+    color: "#38bdf8",
+    description: "State-of-the-art LLMs and generative toolchains powering our rapid prototyping and execution.",
+    categories: ["AI Tools"],
+  },
+  {
+    title: "Frontend Core & 3D Web",
+    icon: Palette,
+    color: "#61dafb",
+    description: "Reactive UI architectures, interactive 3D WebGL, and micro-animations at 60 FPS.",
+    categories: ["Frontend", "Fullstack", "Language", "Styling", "3D Graphics", "Animation", "Graphics"],
+  },
+  {
+    title: "Backend & Scalable Systems",
+    icon: Server,
+    color: "#22c55e",
+    description: "High-throughput microservices, robust data persistence, and in-memory distributed caching.",
+    categories: ["Systems", "Backend", "Runtime", "Database", "BaaS", "Cache"],
+  },
+  {
+    title: "Design Systems & DevOps",
+    icon: Terminal,
+    color: "#a259ff",
+    description: "Living design tokens, zero-downtime CI/CD workflows, and containerized cloud edge infrastructure.",
+    categories: ["UI/UX", "Design", "DevOps", "Edge"],
+  },
+]
+
+const MOBILE_FRAMEWORK_PILLARS = [
+  {
+    step: "01",
+    phase: "Discovery & Blueprint",
+    tagline: "Architecture Scoping & System Schema",
+    tags: ["PRODUCT BLUEPRINT", "SYSTEM SCHEMA", "UX JOURNEY", "TECH SCOPING"],
+    description: "Defining precise data models, technical scope, and user flows before writing a single line of production code.",
+  },
+  {
+    step: "02",
+    phase: "Design Tokens & Tactile UI",
+    tagline: "Figma Sync & Atomic Design Systems",
+    tags: ["ATOMIC TOKENS", "FIGMA SYNC", "TACTILE UI", "DESIGN SYSTEM"],
+    description: "Engineering living design token systems synchronized directly with Figma to maintain pixel-perfection.",
+  },
+  {
+    step: "03",
+    phase: "AI Pairing & Clean Engineering",
+    tagline: "Strong Typing & High-Velocity Code",
+    tags: ["AI PAIRING", "TYPE SAFETY", "CLEAN ARCH", "STATE MACHINES"],
+    description: "Accelerating execution using modern AI toolchains while enforcing strict typing and zero runtime crashes.",
+  },
+  {
+    step: "04",
+    phase: "Automated QA & CI/CD Pipelines",
+    tagline: "Continuous Integration & Zero Downtime",
+    tags: ["CI/CD PIPELINE", "UNIT TESTS", "WCAG AAA", "ZERO DOWNTIME"],
+    description: "Automated testing matrices, accessibility audits, and battle-tested release workflows for reliable shipping.",
+  },
+  {
+    step: "05",
+    phase: "60 FPS Performance & Observability",
+    tagline: "Sub-second Speeds & Live Telemetry",
+    tags: ["60FPS PERF", "EDGE CACHING", "OBSERVABILITY", "TELEMETRY"],
+    description: "Auditing 98+ Lighthouse scores, tuning sub-millisecond edge latency, and instrumenting live production telemetry.",
+  },
+]
 
 // Web Audio API procedural sound generator (Zero external MP3 dependencies)
 class SoundEngine {
@@ -79,6 +148,16 @@ export default function PlaygroundCanvas() {
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [score, setScore] = useState(0)
   const [fps, setFps] = useState(60)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // References for physics loop
   const stateRef = useRef({
@@ -175,12 +254,14 @@ export default function PlaygroundCanvas() {
   }
 
   useEffect(() => {
+    if (isMobile) return
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
     const container = containerRef.current
+    if (!container) return
 
     const updateDimensions = () => {
       const rect = container.getBoundingClientRect()
@@ -619,37 +700,37 @@ export default function PlaygroundCanvas() {
       canvas.removeEventListener('touchstart', handlePointerDown)
       canvas.removeEventListener('touchend', handlePointerUp)
     }
-  }, [mode, gravityEnabled, initBadges, initTargets])
+  }, [mode, gravityEnabled, isMobile, initBadges, initTargets])
 
   return (
     <section id="playground" className="py-14 sm:py-16 lg:py-18 w-full relative overflow-hidden">
-      {/* Section Header & Minimal HUD Controls */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-8">
+      {/* Section Header & Responsive HUD Controls */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-6 sm:pb-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#d9f99d] tracking-widest uppercase mb-3">
               <Cpu className="w-4 h-4 text-[#d9f99d]" />
               <span>02 // Stack &amp; Dev Framework</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white">
+            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white">
               Our Engine &amp; Workflow
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-zinc-400 font-sans max-w-xl">
+            <p className="mt-3 text-xs sm:text-base text-zinc-400 font-sans max-w-xl">
               From modern AI accelerators and resilient full-stack systems to our team&apos;s end-to-end engineering framework—built to ship high-impact digital products without guesswork.
             </p>
           </div>
 
-          {/* Quick HUD Toolbar Controls */}
+          {/* HUD Toolbar Controls */}
           <div className="flex flex-wrap items-center gap-3">
-            {/* Mode Switcher Tabs */}
-            <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-sm">
+            {/* Mode Switcher Tabs (Accessible on all devices) */}
+            <div className="flex items-center justify-center gap-1.5 p-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-sm w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() => {
                   setMode('badges')
                   handleReset()
                 }}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 sm:py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
                   mode === 'badges'
                     ? 'bg-[#d9f99d] text-black font-bold shadow-[0_0_15px_rgba(217,249,157,0.3)]'
                     : 'text-zinc-400 hover:text-white'
@@ -665,7 +746,7 @@ export default function PlaygroundCanvas() {
                   setMode('breakdown')
                   handleReset()
                 }}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 sm:py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
                   mode === 'breakdown'
                     ? 'bg-[#d9f99d] text-black font-bold shadow-[0_0_15px_rgba(217,249,157,0.3)]'
                     : 'text-zinc-400 hover:text-white'
@@ -676,8 +757,8 @@ export default function PlaygroundCanvas() {
               </button>
             </div>
 
-            {/* Quick Action Controls */}
-            <div className="flex items-center gap-2">
+            {/* Desktop-Only HUD Action Controls */}
+            <div className="hidden md:flex items-center gap-2">
               <span className="flex items-center gap-1.5 text-xs font-mono text-[#d9f99d] bg-white/[0.04] px-3 py-1.5 rounded-full border border-white/10">
                 <Zap className="w-3.5 h-3.5" />
                 <span>{fps} FPS</span>
@@ -727,26 +808,138 @@ export default function PlaygroundCanvas() {
         </div>
       </div>
 
-      {/* Full-Bleed Borderless Canvas (Completely Unboxed, Spanning Full Screen) */}
-      <div
-        ref={containerRef}
-        className="relative w-full h-[520px] md:h-[620px] select-none touch-none overflow-hidden"
-        data-cursor-drag={mode === 'badges' ? 'true' : undefined}
-        data-cursor-break={mode === 'breakdown' ? 'true' : undefined}
-      >
-        <canvas ref={canvasRef} className="block w-full h-full" />
+      {/* ========================================================================= */}
+      {/* DESKTOP & TABLET VIEW: Full-Bleed Interactive Physics Playground Canvas */}
+      {/* ========================================================================= */}
+      <div className="hidden md:block w-full">
+        <div
+          ref={containerRef}
+          className="relative w-full h-[520px] md:h-[620px] select-none touch-none overflow-hidden"
+          data-cursor-drag={mode === 'badges' ? 'true' : undefined}
+          data-cursor-break={mode === 'breakdown' ? 'true' : undefined}
+        >
+          <canvas ref={canvasRef} className="block w-full h-full" />
+        </div>
+
+        {/* Ambient Hint Badge for Desktop */}
+        <div className="mt-4 flex justify-center px-6">
+          <div className="inline-flex items-center gap-2 font-mono text-[11px] text-zinc-400 bg-white/[0.03] px-4 py-1.5 rounded-full border border-white/5 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d9f99d] animate-pulse" />
+            <span>
+              {mode === 'badges'
+                ? 'Drag or toss tech badges anywhere across the screen • Full-stack & AI arsenal in motion'
+                : 'Aim and shoot to blast through our team’s agile milestones & engineering framework!'}
+            </span>
+          </div>
+        </div>
       </div>
 
-      {/* Ambient Hint Badge (Positioned Cleanly Below Canvas - Never Overlaps Content) */}
-      <div className="mt-4 flex justify-center px-6">
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] text-zinc-400 bg-white/[0.03] px-4 py-1.5 rounded-full border border-white/5 whitespace-nowrap">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#d9f99d] animate-pulse" />
-          <span>
-            {mode === 'badges'
-              ? 'Drag or toss tech badges anywhere across the screen • Full-stack & AI arsenal in motion'
-              : 'Aim and shoot to blast through our team’s agile milestones & engineering framework!'}
-          </span>
-        </div>
+      {/* ========================================================================= */}
+      {/* MOBILE (HANDPHONE) VIEW: Clean, Simple & Highly Informative Layout         */}
+      {/* ========================================================================= */}
+      <div className="block md:hidden max-w-7xl mx-auto px-4 sm:px-6">
+        {mode === 'badges' ? (
+          /* Mobile Stack We Use: 4 Categorized Domain Cards */
+          <div className="space-y-4">
+            {MOBILE_STACK_CATEGORIES.map((group) => {
+              const GroupIcon = group.icon
+              const groupBadges = playgroundPhysicsBadges.filter((b) =>
+                group.categories.includes(b.category)
+              )
+
+              return (
+                <div
+                  key={group.title}
+                  className="p-5 rounded-2xl bg-[#111116] border border-white/10 shadow-lg"
+                >
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className="p-2 rounded-xl shrink-0"
+                        style={{ backgroundColor: `${group.color}15`, color: group.color }}
+                      >
+                        <GroupIcon className="w-4 h-4" />
+                      </div>
+                      <h3 className="font-display text-sm sm:text-base font-bold text-white tracking-tight">
+                        {group.title}
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 text-zinc-400 shrink-0">
+                      {groupBadges.length} tools
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-zinc-400 font-sans leading-relaxed mb-3.5">
+                    {group.description}
+                  </p>
+
+                  {/* Tactile Pills */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {groupBadges.map((badge) => (
+                      <span
+                        key={badge.label}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border bg-white/[0.03] select-none"
+                        style={{
+                          borderColor: `${badge.color}35`,
+                          color: '#f4f4f5',
+                        }}
+                      >
+                        <span
+                          className="w-1.5 h-1.5 rounded-full shrink-0"
+                          style={{ backgroundColor: badge.color }}
+                        />
+                        <span>{badge.label}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          /* Mobile Dev Framework: 5 Sequential Delivery Milestones */
+          <div className="space-y-3.5">
+            {MOBILE_FRAMEWORK_PILLARS.map((pillar) => (
+              <div
+                key={pillar.step}
+                className="relative p-5 rounded-2xl bg-[#111116] border border-white/10 shadow-lg overflow-hidden"
+              >
+                {/* Phase Badge & Step */}
+                <div className="flex items-center justify-between pb-2 text-xs font-mono">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#d9f99d]/10 border border-[#d9f99d]/30 text-[#d9f99d] font-bold text-[11px]">
+                      PHASE {pillar.step}
+                    </span>
+                    <span className="text-zinc-500">//</span>
+                    <span className="text-zinc-400 text-[11px] truncate max-w-[190px]">
+                      {pillar.tagline}
+                    </span>
+                  </div>
+                </div>
+
+                <h3 className="font-display text-sm sm:text-base font-bold text-white tracking-tight pt-1">
+                  {pillar.phase}
+                </h3>
+
+                <p className="mt-2 text-xs text-zinc-400 font-sans leading-relaxed">
+                  {pillar.description}
+                </p>
+
+                {/* Milestone Tags */}
+                <div className="mt-3 pt-3 border-t border-white/5 flex flex-wrap gap-1.5">
+                  {pillar.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-0.5 rounded-full text-[10px] font-mono text-zinc-300 bg-white/5 border border-white/10"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

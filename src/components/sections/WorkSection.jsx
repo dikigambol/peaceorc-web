@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Code2, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import { ExternalLink, Code2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { projects, projectCategories } from '../../data/portfolioData'
 import TagBadge from '../common/TagBadge'
 
