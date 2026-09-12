@@ -8,7 +8,7 @@ export const personalInfo = {
   timezone: "Asia/Jakarta",
   tagline: "Architecting tactile digital experiences, physics-driven interactions, and resilient modern web systems.",
   editorialBio: "Operating at the intersection of graphic precision and computer graphics. Every pixel carries intent; every interaction responds with weight, momentum, and tactile delight.",
-  contactEmail: "hello@peaceorc.dev",
+  contactEmail: "peaceorc@gmail.com",
   stats: [
     { label: "Years Experience", value: "6+" },
     { label: "Shipped Projects", value: "35+" },
@@ -26,9 +26,7 @@ export const personalInfo = {
 export const projectCategories = [
   "All",
   "Creative Tech",
-  "Web3 & FinTech",
-  "Spatial & AI",
-  "Design Systems"
+  "Web3 & FinTech"
 ];
 
 export const projects = [
@@ -40,10 +38,9 @@ export const projects = [
     client: "Neura Labs Inc.",
     tagline: "Real-time generative 3D sound visualizer with GLSL spectral shaders",
     accentColor: "#d9f99d", // Acid lime
+    image: "/projects/neura-spatial.jpg",
     metrics: "3.2M+ Streams Visualized",
     description: "An experimental audio-reactive browser installation that transforms ambient audio frequencies into fluid 3D geometric particle landscapes at persistent 60 FPS.",
-    challenge: "Rendering over 250,000 instanced audio-reactive mesh particles while keeping CPU usage under 12% across varied consumer mobile browsers.",
-    solution: "Leveraged offscreen Web Workers for spectral Fast Fourier Transform (FFT) analysis and compiled custom vertex displacement GLSL shaders in Three.js.",
     techStack: ["React 19", "Three.js", "Web Audio API", "GLSL Shaders", "Tailwind CSS"],
     liveUrl: "https://neura-spatial.example.com",
     githubUrl: "https://github.com/peaceorc/neura-spatial",
@@ -57,10 +54,9 @@ export const projects = [
     client: "Aether Protocol",
     tagline: "Sub-millisecond institutional order book with high-density canvas streaming",
     accentColor: "#a855f7", // Electric purple
+    image: "/projects/aether-terminal.jpg",
     metrics: "<12ms Render Latency",
     description: "A high-performance algorithmic trading interface engineered for crypto market makers and quantitative derivatives desks.",
-    challenge: "Handling up to 8,000 tick updates per second without triggering DOM thrashing or memory garbage collection spikes.",
-    solution: "Designed an in-memory double-buffered Canvas 2D engine that renders dynamic depth charts and order ladders with zero layout shifts.",
     techStack: ["React", "TypeScript", "HTML5 Canvas", "WebSockets", "Tailwind CSS"],
     liveUrl: "https://aether-vault.example.com",
     githubUrl: "https://github.com/peaceorc/aether-terminal",
@@ -74,64 +70,53 @@ export const projects = [
     client: "Open Source / Lab",
     tagline: "Rigid-body 2D physics sandbox and micro-interaction laboratory",
     accentColor: "#38bdf8", // Sky blue
+    image: "/projects/kinetic-foundry.jpg",
     metrics: "1,200+ Interactive Stars",
     description: "A developer toolkit and playground demonstrating how physical mechanics—gravity, friction, elasticity, and inertia—can elevate web navigation.",
-    challenge: "Bridging mathematical Verlet physics integration with React component lifecycle events cleanly and declaratively.",
-    solution: "Formulated a lightweight custom physics loop module (<4KB) that directly writes transform matrices to GPU compositing layers.",
     techStack: ["React 19", "HTML5 Canvas API", "Verlet Physics", "Lenis", "Vite"],
     liveUrl: "https://kinetic-foundry.example.com",
     githubUrl: "https://github.com/peaceorc/kinetic-foundry",
-    featured: true,
-  },
-  {
-    id: "chrono-editorial",
-    title: "Chrono Typography Matrix",
-    category: "Design Systems",
-    year: "2023",
-    client: "Chrono Press Berlin",
-    tagline: "Avant-garde editorial publication system with dynamic optical sizing",
-    accentColor: "#f43f5e", // Rose
-    metrics: "100% Lighthouse Performance",
-    description: "A fluid typography design system and reading experience tailored for modern architectural and high-fashion periodicals.",
-    challenge: "Achieving seamless responsive leading and optical variable font axis transformations as the user scrolls at varied velocities.",
-    solution: "Mapped Lenis scroll delta vectors to CSS variable font weight and optical axis properties with custom easing functions.",
-    techStack: ["Next.js", "Framer Motion", "Lenis Scroll", "Variable Fonts", "Tailwind CSS"],
-    liveUrl: "https://chrono-press.example.com",
-    githubUrl: "https://github.com/peaceorc/chrono-editorial",
-    featured: false,
-  },
-  {
-    id: "synapse-canvas",
-    title: "Synapse Node Workspace",
-    category: "Spatial & AI",
-    year: "2025",
-    client: "Synapse AI Lab",
-    tagline: "Infinite spatial canvas for visual multimodal AI pipeline construction",
-    accentColor: "#fbbf24", // Amber
-    metrics: "4.8/5 Developer Rating",
-    description: "A visual programming environment that enables designers to link generative models, vision models, and code nodes into interactive pipelines.",
-    challenge: "Providing 60 FPS panning, zooming, and bezier wire rerouting across thousands of nested canvas nodes.",
-    solution: "Used spatial quadtree partitioning for viewport culling and decoupled node coordinate states into a zero-overhead observable store.",
-    techStack: ["React 19", "Canvas API", "WebGL", "Framer Motion", "Tailwind CSS"],
-    liveUrl: "https://synapse-canvas.example.com",
-    githubUrl: "https://github.com/peaceorc/synapse-canvas",
     featured: true,
   }
 ];
 
 export const playgroundPhysicsBadges = [
-  { label: "React 19", category: "Core", color: "#61dafb" },
-  { label: "Vite", category: "Build", color: "#bd34fe" },
+  // AI Engineering & LLMs
+  { label: "Claude 3.7", category: "AI Tools", color: "#d97706" },
+  { label: "Cursor AI", category: "AI Tools", color: "#38bdf8" },
+  { label: "OpenAI GPT-4o", category: "AI Tools", color: "#10b981" },
+  { label: "v0 by Vercel", category: "AI Tools", color: "#e4e4e7" },
+  { label: "LangChain", category: "AI Tools", color: "#06b6d4" },
+
+  // Frontend Core & 3D
+  { label: "React 19", category: "Frontend", color: "#61dafb" },
+  { label: "Next.js 15", category: "Fullstack", color: "#f4f4f5" },
   { label: "TypeScript", category: "Language", color: "#3178c6" },
-  { label: "Tailwind CSS", category: "Style", color: "#38bdf8" },
-  { label: "Lenis Scroll", category: "Motion", color: "#d9f99d" },
+  { label: "Tailwind CSS v4", category: "Styling", color: "#38bdf8" },
+  { label: "Three.js / WebGL", category: "3D Graphics", color: "#a855f7" },
   { label: "Framer Motion", category: "Animation", color: "#ff0055" },
-  { label: "Canvas API", category: "Graphics", color: "#f59e0b" },
-  { label: "Web Audio API", category: "Audio", color: "#10b981" },
-  { label: "Three.js / WebGL", category: "3D", color: "#a855f7" },
-  { label: "Physics Engines", category: "Physics", color: "#ec4899" },
-  { label: "Node.js", category: "Backend", color: "#22c55e" },
-  { label: "Docker & Cloudflare", category: "Infra", color: "#f97316" }
+  { label: "Canvas 2D / Shaders", category: "Graphics", color: "#f59e0b" },
+
+  // Backend & Systems
+  { label: "Rust", category: "Systems", color: "#ea580c" },
+  { label: "Go", category: "Backend", color: "#00add8" },
+  { label: "Node.js / Bun", category: "Runtime", color: "#22c55e" },
+  { label: "PostgreSQL", category: "Database", color: "#336791" },
+  { label: "Supabase", category: "BaaS", color: "#3ecf8e" },
+  { label: "Redis", category: "Cache", color: "#ef4444" },
+
+  // Design Systems & DevOps
+  { label: "Figma Systems", category: "UI/UX", color: "#a259ff" },
+  { label: "Design Tokens", category: "Design", color: "#d9f99d" },
+  { label: "Docker", category: "DevOps", color: "#0db7ed" },
+  { label: "Cloudflare Workers", category: "Edge", color: "#f97316" }
+];
+
+export const devFrameworkSteps = [
+  "PRODUCT BLUEPRINT", "SYSTEM SCHEMA", "UX JOURNEY", "API CONTRACT", "TECH SCOPING",
+  "ATOMIC TOKENS", "FIGMA SYNC", "TACTILE UI", "STATE MACHINES", "DESIGN SYSTEM",
+  "AI PAIRING", "TYPE SAFETY", "CLEAN ARCH", "CI/CD PIPELINE", "UNIT TESTS",
+  "60FPS PERF", "EDGE CACHING", "WCAG AAA", "ZERO DOWNTIME", "OBSERVABILITY"
 ];
 
 export const experiences = [

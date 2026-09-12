@@ -24,7 +24,7 @@ export default function Footer() {
   }
 
   return (
-    <footer id="contact" className="py-24 px-6 sm:px-8 max-w-7xl mx-auto">
+    <footer id="contact" className="py-14 sm:py-16 lg:py-18 px-6 sm:px-8 max-w-7xl mx-auto">
       {/* Editorial Contact Statement */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 pb-16">
         <div className="max-w-3xl">
@@ -41,7 +41,7 @@ export default function Footer() {
           </h2>
 
           <p className="mt-6 text-base sm:text-lg text-zinc-400 font-sans max-w-xl">
-            Currently accepting select engineering and creative technology commissions for Q2/Q3 2026. Reach out to discuss web applications, 3D/physics prototypes, or full-scale digital systems.
+            Partner directly with two hybrid design engineers who code and design every layer of your product. Zero agency bloat, zero handover friction—let&apos;s build resilient web apps, bespoke design systems, and AI-accelerated platforms that drive real results.
           </p>
         </div>
 
@@ -82,35 +82,18 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Social Links & Colophon Bottom Row */}
-      <div className="pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-zinc-500">
-        {/* Social Dock */}
-        <div className="flex flex-wrap items-center gap-6">
-          {personalInfo.socials.map((s) => (
-            <a
-              key={s.name}
-              href={s.url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-zinc-400 hover:text-[#d9f99d] transition-colors"
-            >
-              {s.name}
-            </a>
-          ))}
-        </div>
-
-        {/* Back to top & credits */}
-        <div className="flex items-center gap-6">
-          <span>© 2026 {personalInfo.name} — ALL RIGHTS RESERVED</span>
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <span>TOP</span>
-            <ArrowUp className="w-3.5 h-3.5 text-[#d9f99d]" />
-          </button>
-        </div>
+      {/* Centered Colophon & Scroll to Top Bottom Row */}
+      <div className="pt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-zinc-500">
+        <span>© 2026 {personalInfo.name} — ALL RIGHTS RESERVED</span>
+        <span className="hidden sm:inline text-zinc-700">•</span>
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <span>BACK TO TOP</span>
+          <ArrowUp className="w-3.5 h-3.5 text-[#d9f99d] group-hover:-translate-y-0.5 transition-transform" />
+        </button>
       </div>
     </footer>
   )

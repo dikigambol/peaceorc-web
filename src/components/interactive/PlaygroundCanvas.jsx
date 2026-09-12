@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import confetti from 'canvas-confetti'
-import { RotateCcw, Volume2, VolumeX, Sparkles, Crosshair, Move, Zap } from 'lucide-react'
-import { playgroundPhysicsBadges } from '../../data/portfolioData'
+import { RotateCcw, Volume2, VolumeX, Cpu, Layers, Workflow, Zap } from 'lucide-react'
+import { playgroundPhysicsBadges, devFrameworkSteps } from '../../data/portfolioData'
 
 // Web Audio API procedural sound generator (Zero external MP3 dependencies)
 class SoundEngine {
@@ -97,10 +97,10 @@ export default function PlaygroundCanvas() {
     lastFpsUpdate: 0,
   })
 
-  // Initialize Badges for Mode 1
+  // Initialize Badges for Mode 1 (Stack We Use + AI Tools)
   const initBadges = useCallback((w, h) => {
     return playgroundPhysicsBadges.map((badge, idx) => {
-      const radius = 32 + (badge.label.length * 3.5)
+      const radius = 28 + (badge.label.length * 3)
       const angle = (idx / playgroundPhysicsBadges.length) * Math.PI * 2
       const cx = w / 2 + Math.cos(angle) * (w * 0.35)
       const cy = h / 2 + Math.sin(angle) * (h * 0.28)
@@ -121,20 +121,21 @@ export default function PlaygroundCanvas() {
     })
   }, [])
 
-  // Initialize Targets for Mode 2 (Target Breakdown)
+  // Initialize Targets for Mode 2 (Dev Framework Bricks)
   const initTargets = useCallback((w) => {
     const targets = []
-    const cols = Math.min(12, Math.max(5, Math.floor(w / 120)))
+    const cols = Math.min(5, Math.max(2, Math.floor(w / 190)))
 
     const rows = 4
     const blockWidth = (w - (cols + 1) * 16) / cols
-    const blockHeight = 36
-    const colors = ['#d9f99d', '#38bdf8', '#a855f7', '#f43f5e', '#fbbf24']
+    const blockHeight = 40
+    const colors = ['#d9f99d', '#38bdf8', '#a855f7', '#f43f5e', '#fbbf24', '#10b981']
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const x = 16 + c * (blockWidth + 16)
         const y = 30 + r * (blockHeight + 14)
+        const labelIdx = (r * cols + c) % devFrameworkSteps.length
         targets.push({
           id: `target-${r}-${c}`,
           x,
@@ -143,7 +144,7 @@ export default function PlaygroundCanvas() {
           height: blockHeight,
           color: colors[(r + c) % colors.length],
           points: (rows - r) * 100,
-          label: ['PERF', '60FPS', 'LENIS', 'REACT', 'GLSL', 'VITE', 'MOTION', 'CANVAS', 'DESIGN', 'SYSTEMS', 'EDGE', 'TOKENS'][c % 12],
+          label: devFrameworkSteps[labelIdx],
           alive: true,
         })
       }
@@ -621,20 +622,20 @@ export default function PlaygroundCanvas() {
   }, [mode, gravityEnabled, initBadges, initTargets])
 
   return (
-    <section id="playground" className="py-24 w-full relative overflow-hidden">
+    <section id="playground" className="py-14 sm:py-16 lg:py-18 w-full relative overflow-hidden">
       {/* Section Header & Minimal HUD Controls */}
       <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#d9f99d] tracking-widest uppercase mb-3">
-              <Sparkles className="w-4 h-4 text-[#d9f99d]" />
-              <span>02 // Interactive Laboratory</span>
+              <Cpu className="w-4 h-4 text-[#d9f99d]" />
+              <span>02 // Stack &amp; Dev Framework</span>
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white">
-              Physics &amp; Canvas
+              Our Engine &amp; Workflow
             </h2>
             <p className="mt-3 text-sm sm:text-base text-zinc-400 font-sans max-w-xl">
-              Real-time spring physics, boundary collisions, and tactile canvas rendering built directly from browser primitives.
+              From modern AI accelerators and resilient full-stack systems to our team&apos;s end-to-end engineering framework—built to ship high-impact digital products without guesswork.
             </p>
           </div>
 
@@ -654,8 +655,8 @@ export default function PlaygroundCanvas() {
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <Move className="w-3.5 h-3.5" />
-                <span>Floating Badges</span>
+                <Layers className="w-3.5 h-3.5" />
+                <span>Stack We Use</span>
               </button>
 
               <button
@@ -670,8 +671,8 @@ export default function PlaygroundCanvas() {
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <Crosshair className="w-3.5 h-3.5" />
-                <span>Target Breakdown</span>
+                <Workflow className="w-3.5 h-3.5" />
+                <span>Dev Framework</span>
               </button>
             </div>
 
@@ -742,8 +743,8 @@ export default function PlaygroundCanvas() {
           <span className="w-1.5 h-1.5 rounded-full bg-[#d9f99d] animate-pulse" />
           <span>
             {mode === 'badges'
-              ? 'Drag or toss badges anywhere across the screen • Repulsion force active'
-              : 'Click anywhere across the canvas to aim and shoot projectiles!'}
+              ? 'Drag or toss tech badges anywhere across the screen • Full-stack & AI arsenal in motion'
+              : 'Aim and shoot to blast through our team’s agile milestones & engineering framework!'}
           </span>
         </div>
       </div>

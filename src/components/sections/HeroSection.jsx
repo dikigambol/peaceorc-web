@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Terminal, CheckCircle2, ArrowUpRight } from 'lucide-react'
 import confetti from 'canvas-confetti'
-import { personalInfo } from '../../data/portfolioData'
 
 
 const GLYPHS = '01#@!&<>~*$_%+/[]'
@@ -220,25 +219,25 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] lg:h-[100dvh] lg:max-h-[100dvh] flex flex-col justify-between pt-20 sm:pt-24 lg:pt-28 pb-6 sm:pb-8 px-5 sm:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-center items-center pt-14 sm:pt-16 pb-6 px-6 sm:px-8 max-w-7xl mx-auto overflow-hidden"
     >
       {/* Subtle background ambient glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#d9f99d]/10 via-[#a855f7]/5 to-transparent blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#d9f99d]/10 via-[#a855f7]/5 to-transparent blur-3xl pointer-events-none rounded-full" />
 
-      {/* Giant Headline Typography */}
+      {/* Main Content Lockup - Overall centered in screen with wide horizontal breathing room */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="my-auto py-2 sm:py-4 lg:py-6 flex flex-col justify-center"
+        className="w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl flex flex-col items-start my-auto z-10"
       >
         {/* Headline Group */}
-        <div className="space-y-1">
+        <div className="space-y-1 w-full">
           {/* Row 1: DEVELOP */}
           <div className="overflow-hidden">
             <motion.h1
               variants={itemVariants}
-              className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase tracking-tight text-white leading-[0.96]"
+              className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold uppercase tracking-tight text-white leading-[0.96]"
             >
               <InteractivePhrase text="Develop" />
             </motion.h1>
@@ -248,7 +247,7 @@ export default function HeroSection() {
           <div className="overflow-hidden">
             <motion.h1
               variants={itemVariants}
-              className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase tracking-tight text-zinc-400 hover:text-white transition-colors leading-[0.96] flex flex-wrap items-center"
+              className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold uppercase tracking-tight text-zinc-400 hover:text-white transition-colors leading-[0.96] flex flex-wrap items-center"
             >
               <span
                 onClick={triggerRoleCycle}
@@ -281,7 +280,7 @@ export default function HeroSection() {
           <div className="overflow-hidden pt-1">
             <motion.h1
               variants={itemVariants}
-              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-[#d9f99d] leading-[1.02]"
+              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-[#d9f99d] leading-[1.02]"
             >
               <InteractivePhrase text="& anything" />
             </motion.h1>
@@ -289,7 +288,7 @@ export default function HeroSection() {
         </div>
 
         {/* Tagline */}
-        <div className="mt-4 sm:mt-6 max-w-2xl overflow-hidden">
+        <div className="mt-4 sm:mt-6 max-w-3xl lg:max-w-4xl overflow-hidden">
           <motion.p
             variants={itemVariants}
             className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-400 font-sans leading-relaxed font-light"
@@ -321,41 +320,19 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Bottom Stats & Scroll Prompt Grid */}
-      <motion.div
+      {/* Subtle Scroll Indicator at Bottom Center */}
+      <motion.a
+        href="#works"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.8 }}
-        className="pt-4 sm:pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6 shrink-0"
+        className="absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 flex items-center gap-2.5 text-xs font-mono text-zinc-500 hover:text-[#d9f99d] transition-colors group cursor-pointer select-none z-10"
       >
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 lg:gap-12 w-full md:w-auto">
-          {personalInfo.stats.map((stat, i) => (
-            <div
-              key={i}
-              className="flex flex-col group cursor-pointer"
-              onClick={() => playTextTone(350 + i * 150)}
-            >
-              <span className="font-display text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight group-hover:text-[#d9f99d] transition-colors">
-                {stat.value}
-              </span>
-              <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
-                {stat.label}
-              </span>
-            </div>
-          ))}
+        <span className="uppercase tracking-widest text-[10px] sm:text-[11px]">Scroll To Discover</span>
+        <div className="w-4 h-6 sm:w-5 sm:h-7 rounded-full border border-white/20 group-hover:border-[#d9f99d] flex items-start justify-center p-1 transition-colors">
+          <span className="w-1 h-1.5 rounded-full bg-[#d9f99d] animate-bounce" />
         </div>
-
-        {/* Scroll To Discover Prompt for Desktop & Tablet */}
-        <a
-          href="#works"
-          className="hidden md:flex items-center gap-3 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors group cursor-pointer shrink-0 select-none"
-        >
-          <span className="uppercase tracking-widest text-[11px]">Scroll To Discover</span>
-          <div className="w-5 h-8 rounded-full border border-white/20 group-hover:border-[#d9f99d] flex items-start justify-center p-1 transition-colors">
-            <span className="w-1 h-2 rounded-full bg-[#d9f99d] animate-bounce" />
-          </div>
-        </a>
-      </motion.div>
+      </motion.a>
 
       {/* INTERACTIVE "I'M LUCKY" IT JOKE & PEACEORC SOLUTION MODAL */}
       <AnimatePresence>

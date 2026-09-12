@@ -70,7 +70,7 @@ export default function ExperienceSection() {
   ]
 
   return (
-    <section id="experience" className="py-24 px-6 sm:px-8 max-w-7xl mx-auto">
+    <section id="experience" className="py-14 sm:py-16 lg:py-18 px-6 sm:px-8 max-w-7xl mx-auto">
       {/* Section Header: Bold & Editorial */}
       <div className="pb-12">
         <div className="max-w-2xl">
