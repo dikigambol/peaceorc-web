@@ -272,16 +272,20 @@ export default function WorkSection() {
               >
                 <div>
                   {/* Top Metadata: Label & Year */}
-                  <div className="flex flex-wrap items-center gap-3 pb-4 sm:pb-6 text-xs font-mono">
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pb-4 sm:pb-6 text-xs font-mono">
                     <span
-                      className="px-3 py-1 rounded-full border text-xs font-semibold tracking-wider"
+                      className="px-3 py-1 rounded-full border text-xs font-semibold tracking-wider flex items-center gap-1.5"
                       style={{
                         borderColor: `${currentProject.accentColor}50`,
                         color: currentProject.accentColor,
                         backgroundColor: `${currentProject.accentColor}15`,
                       }}
                     >
-                      {currentProject.category}
+                      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: currentProject.accentColor }} />
+                      {currentProject.subCategory || currentProject.category}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-amber-400/10 text-amber-300 border border-amber-400/30">
+                      EXPERIMENTAL
                     </span>
                     <span className="text-zinc-500">•</span>
                     <span className="text-zinc-400">{currentProject.year}</span>

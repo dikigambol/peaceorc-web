@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Terminal, Sparkles, ExternalLink, Cpu, Compass } from 'lucide-react'
+import { Terminal, Sparkles, ExternalLink, Cpu, Palette, Code2, Heart, CheckCircle2 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { teamMembers } from '../../data/portfolioData'
 
 // Procedural audio synth for interactive clicks
-function playDuoTone(freq = 600) {
+function playAudioSynth(freq = 600) {
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext
     if (!AudioCtx) return
@@ -27,22 +27,48 @@ function playDuoTone(freq = 600) {
 }
 
 export default function ExperienceSection() {
-  const [hoveredMember, setHoveredMember] = useState(null)
-  const [synergyActive, setSynergyActive] = useState(false)
+  const member = teamMembers[0] || {
+    id: "diki",
+    tag: "01 // CREATIVE DEVELOPER & ARCHITECT",
+    name: "Diki",
+    avatar: "/devs/diki.jpg",
+    title: "Design Engineer & Systems Architect",
+    role: "Creative Code, 3D Physics & UI/UX Architecture",
+    accentColor: "#d9f99d",
+    status: "Designing & Coding in Real-Time",
+    bio: "Fluidly bridges Figma prototypes with production code. Obsessed with 60 FPS physics engines, spatial interaction design, and resilient backend micro-architectures.",
+    quote: "Design without code is just a still picture; code without design is just machine logic. I fuse both without compromise.",
+    terminalPrompt: "peaceorc@core:~$ figma-tokens sync && cargo build --release",
+    designStack: ["Figma Systems", "3D / Spatial UI", "Interaction Specs", "Design Tokens"],
+    codeStack: ["React 19", "Three.js / WebGL", "Rust & Go", "Docker", "Tailwind CSS"],
+    social: { github: "https://github.com/peaceorc", x: "https://x.com/peaceorc" },
+    initialHighFives: 218,
+  }
 
-  const member1 = teamMembers[0]
-  const member2 = teamMembers[1]
+  const [highFives, setHighFives] = useState(member.initialHighFives || 218)
+  const [pipelineActive, setPipelineActive] = useState(false)
 
-  const triggerSynergyBlast = () => {
-    setSynergyActive(true)
-    playDuoTone(900)
+  const triggerPipelineBlast = () => {
+    setPipelineActive(true)
+    playAudioSynth(880)
     confetti({
-      particleCount: 60,
-      spread: 80,
+      particleCount: 70,
+      spread: 90,
       origin: { y: 0.6, x: 0.5 },
-      colors: ['#d9f99d', '#a855f7', '#38bdf8', '#ffffff'],
+      colors: ['#d9f99d', '#38bdf8', '#ffffff', '#a855f7'],
     })
-    setTimeout(() => setSynergyActive(false), 2000)
+    setTimeout(() => setPipelineActive(false), 2000)
+  }
+
+  const handleHighFive = () => {
+    setHighFives((prev) => prev + 1)
+    playAudioSynth(750)
+    confetti({
+      particleCount: 25,
+      spread: 50,
+      origin: { y: 0.7, x: 0.8 },
+      colors: ['#d9f99d', '#ffffff'],
+    })
   }
 
   const workflowSteps = [
@@ -50,191 +76,211 @@ export default function ExperienceSection() {
       num: "01",
       title: "Zero-Friction Prototyping",
       spec: "Tokenized Figma Sync + Live Interactive Canvas",
-      role1: `${member1?.name || 'Diki'}: Spatial Layout & Physics Engine`,
-      role2: `${member2?.name || 'Ridho'}: Core UX Architecture & Atomic Tokens`,
+      detail: "Direct translation from architectural wireframes into functional canvas prototypes without static handover lag.",
     },
     {
       num: "02",
-      title: "Symmetric Full-Stack Build",
-      spec: "Double Velocity Without Handover Silos",
-      role1: `${member1?.name || 'Diki'}: Systems Scalability & Real-Time Sync`,
-      role2: `${member2?.name || 'Ridho'}: High-Conversion UI & Edge API Logic`,
+      title: "End-to-End Full-Stack Build",
+      spec: "Direct Velocity Without Handover Silos",
+      detail: "Tactile React/WebGL frontend and resilient micro-services engineered simultaneously by the same hands.",
     },
     {
       num: "03",
       title: "Turnkey Production Ship",
       spec: "Zero-Crash Resiliency + Pixel-Perfect Polish",
-      role1: `${member1?.name || 'Diki'}: Automated CI/CD & Performance Auditing`,
-      role2: `${member2?.name || 'Ridho'}: WCAG AAA Accessibility & Conversion QA`,
+      detail: "Automated CI/CD pipelines, strict 60 FPS performance audits, and WCAG AAA accessibility standards.",
     },
   ]
 
   return (
-    <section id="experience" className="py-14 sm:py-16 lg:py-18 px-6 sm:px-8 max-w-7xl mx-auto">
+    <section id="experience" className="py-14 sm:py-16 lg:py-20 px-6 sm:px-8 max-w-7xl mx-auto">
       {/* Section Header: Bold & Editorial */}
       <div className="pb-12">
         <div className="max-w-2xl">
           <div className="flex items-center gap-2 text-xs font-mono text-[#d9f99d] tracking-widest uppercase mb-4">
             <Cpu className="w-4 h-4 text-[#d9f99d]" />
-            <span>03 // Dual Hybrid Engineers</span>
+            <span>03 // Meet The Dev</span>
           </div>
           <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold uppercase tracking-tight text-white leading-[0.95]">
-            The Hybrid Duo
+            Meet The Dev
           </h2>
           <p className="mt-4 text-base sm:text-lg text-zinc-400 font-sans leading-relaxed">
-            Both of us code. Both of us design. Zero lost-in-translation handover, zero bloated agency overhead—just two hybrid creative technologists shipping high-impact products from sketch to scale.
+            I design. I code. Zero lost-in-translation handover, zero bloated agency overhead—just one direct, full-cycle creative technologist shipping high-impact products from sketch to scale.
           </p>
         </div>
       </div>
 
-      {/* Non-Card Editorial Split: Two Symmetrical Intellectual Pillars */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 relative">
-        {/* Interactive Clickable Central Data Ray Connector (Desktop) */}
-        <div
-          onClick={triggerSynergyBlast}
-          className="hidden lg:flex items-center justify-center absolute left-1/2 top-4 bottom-4 -translate-x-1/2 w-10 cursor-pointer group/line z-10"
-          title="Click to ignite duo synergy ⚡"
-        >
-          <div
-            className={`w-[1.5px] h-full transition-all duration-500 rounded-full ${
-              synergyActive
-                ? 'bg-gradient-to-b from-[#d9f99d] via-white to-[#a855f7] shadow-[0_0_20px_#d9f99d,0_0_35px_#a855f7]'
-                : 'bg-white/10 group-hover/line:bg-white/40 group-hover/line:shadow-[0_0_10px_rgba(255,255,255,0.3)]'
-            }`}
-          />
-        </div>
-
-        {/* PILLAR 1: (HYBRID DESIGN ENGINEER) */}
-        <div
-          onMouseEnter={() => setHoveredMember(member1.id)}
-          onMouseLeave={() => setHoveredMember(null)}
-          className={`space-y-6 transition-opacity duration-300 ${hoveredMember === member2.id ? 'opacity-60' : 'opacity-100'}`}
-        >
+      {/* Main Profile Presentation */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Left Column: Core Identity & Narrative (7 cols) */}
+        <div className="lg:col-span-7 space-y-6">
           {/* Top Tag & Live Indicator */}
           <div className="flex items-center justify-between pb-2">
             <span className="text-xs font-mono tracking-widest text-[#d9f99d] uppercase">
-              {member1.tag}
+              {member.tag}
             </span>
             <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-400 bg-white/[0.03] px-3 py-1 rounded-full border border-white/5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{member1.status}</span>
+              <span>{member.status}</span>
             </div>
           </div>
 
-          {/* Huge Editorial Name & Title */}
-          <div>
-            <h3 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white hover:text-[#d9f99d] transition-colors cursor-pointer select-none">
-              {member1.name}
-            </h3>
-            <p className="font-mono text-sm sm:text-base text-zinc-400 mt-1">
-              {member1.title} <span className="text-zinc-600">•</span> {member1.role}
-            </p>
+          {/* Huge Editorial Name & Title with Small Photo */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="relative shrink-0 group">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-white/10 group-hover:border-[#d9f99d] transition-all duration-300 shadow-xl shadow-black/50 bg-[#18181b]">
+                <img
+                  src={member.avatar || "/devs/diki.jpg"}
+                  alt={member.name}
+                  className="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                />
+              </div>
+              <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#09090b] shadow-[0_0_8px_#10b981]" title="Online" />
+            </div>
+
+            <div>
+              <h3 className="font-display text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white hover:text-[#d9f99d] transition-colors select-none leading-none">
+                {member.name}
+              </h3>
+              <p className="font-mono text-sm sm:text-base text-zinc-400 mt-2">
+                {member.title} <span className="text-zinc-600">•</span> {member.role}
+              </p>
+            </div>
           </div>
 
-          {/* Terminal Command Line Snippet */}
-          <div className="p-4 rounded-xl bg-[#09090b] border border-white/5 font-mono text-xs text-zinc-400 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-3.5 h-3.5 text-[#d9f99d]" />
-              <span className="text-zinc-300">{member1.terminalPrompt}</span>
+          {/* Interactive Terminal Command Line Snippet */}
+          <div 
+            onClick={triggerPipelineBlast}
+            className="p-4 rounded-xl bg-[#09090b] border border-white/10 hover:border-[#d9f99d]/40 transition-all font-mono text-xs text-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer group shadow-lg shadow-black/40"
+            title="Click to execute build pipeline ⚡"
+          >
+            <div className="flex items-center gap-2.5 overflow-hidden">
+              <Terminal className="w-4 h-4 text-[#d9f99d] shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="text-zinc-300 truncate">{member.terminalPrompt}</span>
             </div>
-            <span className="text-[10px] text-emerald-400 hidden sm:inline">[60 FPS ACTIVE]</span>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className={`text-[10px] px-2 py-0.5 rounded font-mono transition-colors ${pipelineActive ? 'bg-[#d9f99d] text-black font-bold' : 'text-emerald-400 bg-emerald-500/10'}`}>
+                {pipelineActive ? 'EXECUTION COMPLETE ⚡' : '[60 FPS ACTIVE]'}
+              </span>
+            </div>
           </div>
 
           {/* Bio & Narrative */}
-          <p className="text-sm sm:text-base text-zinc-300 font-sans leading-relaxed font-light">
-            {member1.bio}
+          <p className="text-base sm:text-lg text-zinc-300 font-sans leading-relaxed font-light">
+            {member.bio}
           </p>
 
           {/* Direct Quote */}
-          <div className="border-l-2 border-[#d9f99d] pl-4 py-1 italic font-sans text-sm text-zinc-400">
-            &ldquo;{member1.quote}&rdquo;
+          <div className="border-l-2 border-[#d9f99d] pl-4 py-2 italic font-sans text-sm sm:text-base text-zinc-400 bg-white/[0.01] rounded-r-lg">
+            &ldquo;{member.quote}&rdquo;
           </div>
 
-          {/* Minimal Profile Link */}
-          <div className="pt-2">
-            <a
-              href={member1.social.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors"
+          {/* Minimal Profile Link & High-Five Counter */}
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <a
+                href={member.social.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors"
+              >
+                <span>GitHub / {member.name.toLowerCase()}</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+              {member.social.x && (
+                <a
+                  href={member.social.x}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors"
+                >
+                  <span>X (Twitter)</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleHighFive}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-[#d9f99d] hover:text-black border border-white/10 hover:border-[#d9f99d] text-xs font-mono text-zinc-300 transition-all cursor-pointer group active:scale-95"
+              title="Give high-five"
             >
-              <span>GitHub / {member1.name.toLowerCase()}</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
+              <Heart className="w-3.5 h-3.5 text-rose-400 group-hover:text-black transition-colors" />
+              <span>High-Fives ({highFives})</span>
+            </button>
           </div>
         </div>
 
-        {/* PILLAR 2: (HYBRID DESIGN ENGINEER) */}
-        <div
-          onMouseEnter={() => setHoveredMember(member2.id)}
-          onMouseLeave={() => setHoveredMember(null)}
-          className={`space-y-6 transition-opacity duration-300 ${hoveredMember === member1.id ? 'opacity-60' : 'opacity-100'}`}
-        >
-          {/* Top Tag & Live Indicator */}
-          <div className="flex items-center justify-between pb-2">
-            <span className="text-xs font-mono tracking-widest text-[#a855f7] uppercase">
-              {member2.tag}
-            </span>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-400 bg-white/[0.03] px-3 py-1 rounded-full border border-white/5">
-              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-              <span>{member2.status}</span>
+        {/* Right Column: Dual-Craft Matrix (5 cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* Card: Design Discipline */}
+          <div className="p-6 rounded-2xl bg-[#111115] border border-white/10 hover:border-[#d9f99d]/30 transition-all group">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5">
+              <div className="flex items-center gap-2 text-xs font-mono tracking-wider text-[#d9f99d] uppercase">
+                <Palette className="w-4 h-4 text-[#d9f99d]" />
+                <span>Craft 01 // Spatial & Visual UI</span>
+              </div>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
             </div>
-          </div>
-
-          {/* Huge Editorial Name & Title */}
-          <div>
-            <h3 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white hover:text-[#a855f7] transition-colors cursor-pointer select-none">
-              {member2.name}
-            </h3>
-            <p className="font-mono text-sm sm:text-base text-zinc-400 mt-1">
-              {member2.title} <span className="text-zinc-600">•</span> {member2.role}
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans mb-4">
+              Designing tokenized systems in Figma, ergonomic user journeys, spatial 3D interfaces, and frictionless interaction micro-states.
             </p>
-          </div>
-
-          {/* Terminal Command Line Snippet */}
-          <div className="p-4 rounded-xl bg-[#09090b] border border-white/5 font-mono text-xs text-zinc-400 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Compass className="w-3.5 h-3.5 text-[#a855f7]" />
-              <span className="text-zinc-300">{member2.terminalPrompt}</span>
+            <div className="flex flex-wrap gap-1.5">
+              {member.designStack?.map((skill, i) => (
+                <span key={i} className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 border border-white/5">
+                  {skill}
+                </span>
+              ))}
             </div>
-            <span className="text-[10px] text-purple-400 hidden sm:inline">[WCAG AAA]</span>
           </div>
 
-          {/* Bio & Narrative */}
-          <p className="text-sm sm:text-base text-zinc-300 font-sans leading-relaxed font-light">
-            {member2.bio}
-          </p>
-
-          {/* Direct Quote */}
-          <div className="border-l-2 border-[#a855f7] pl-4 py-1 italic font-sans text-sm text-zinc-400">
-            &ldquo;{member2.quote}&rdquo;
+          {/* Card: Code Discipline */}
+          <div className="p-6 rounded-2xl bg-[#111115] border border-white/10 hover:border-sky-400/30 transition-all group">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5">
+              <div className="flex items-center gap-2 text-xs font-mono tracking-wider text-sky-400 uppercase">
+                <Code2 className="w-4 h-4 text-sky-400" />
+                <span>Craft 02 // Production Systems</span>
+              </div>
+              <CheckCircle2 className="w-3.5 h-3.5 text-sky-400" />
+            </div>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans mb-4">
+              Building 60 FPS React/WebGL frontends, low-latency microservices, real-time WebSocket pipelines, and resilient Dockerized architectures.
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {member.codeStack?.map((skill, i) => (
+                <span key={i} className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 border border-white/5">
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* Minimal Profile Link */}
-          <div className="pt-2">
-            <a
-              href={member2.social.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#a855f7] transition-colors"
+          {/* Value Metric Banner */}
+          <div className="p-4 rounded-xl bg-gradient-to-r from-[#d9f99d]/10 via-sky-500/5 to-transparent border border-[#d9f99d]/20 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-mono text-[#d9f99d] font-bold">100% UNBROKEN VISION</p>
+              <p className="text-[11px] text-zinc-400 font-sans mt-0.5">What is designed is precisely what gets compiled into production.</p>
+            </div>
+            <button
+              onClick={triggerPipelineBlast}
+              className="shrink-0 px-3 py-1.5 rounded-lg bg-[#d9f99d] text-black font-mono text-[10px] font-bold uppercase hover:bg-white transition-all cursor-pointer shadow-[0_0_15px_rgba(217,249,157,0.3)]"
             >
-              <span>GitHub / {member2.name.toLowerCase()}</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
+              RUN DEMO ⚡
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Interactive Duo Collaborative Blueprint (Timeline Without Cards) */}
-      <div className="mt-12 pt-6">
-
+      {/* Interactive Solo Collaborative Blueprint */}
+      <div className="mt-16 pt-8 border-t border-white/5">
         <div className="mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs font-mono text-[#d9f99d] tracking-widest uppercase">
             <Sparkles className="w-4 h-4 text-[#d9f99d]" />
-            <span>How The Duo Builds With You</span>
+            <span>How I Build With You</span>
           </div>
           <span className="font-mono text-xs text-zinc-500">
-            From Blueprint to Launch in 2-4 Weeks
+            From Concept Blueprint to Launch in 2-4 Weeks
           </span>
         </div>
 
@@ -242,8 +288,8 @@ export default function ExperienceSection() {
           {workflowSteps.map((step, idx) => (
             <div
               key={idx}
-              className="space-y-4 group cursor-pointer"
-              onClick={() => playDuoTone(500 + idx * 150)}
+              className="space-y-3 group cursor-pointer p-4 rounded-xl hover:bg-white/[0.02] transition-colors"
+              onClick={() => playAudioSynth(500 + idx * 150)}
             >
               <div className="flex items-baseline gap-3">
                 <span className="font-mono text-xs font-bold text-[#d9f99d]">
@@ -254,20 +300,13 @@ export default function ExperienceSection() {
                 </h4>
               </div>
 
-              <p className="text-xs font-mono text-zinc-400 tracking-wider">
+              <p className="text-xs font-mono text-[#d9f99d]/80 tracking-wider">
                 {step.spec}
               </p>
 
-              <div className="space-y-1.5 text-xs font-sans text-zinc-400 pt-2">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#d9f99d]" />
-                  <span>{step.role1}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7]" />
-                  <span>{step.role2}</span>
-                </div>
-              </div>
+              <p className="text-xs font-sans text-zinc-400 leading-relaxed pt-1">
+                {step.detail}
+              </p>
             </div>
           ))}
         </div>

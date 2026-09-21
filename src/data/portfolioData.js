@@ -25,57 +25,59 @@ export const personalInfo = {
 
 export const projectCategories = [
   "All",
-  "Creative Tech",
-  "Web3 & FinTech"
+  "Experimental"
 ];
 
 export const projects = [
   {
-    id: "neura-spatial",
-    title: "Neura Spatial Engine",
-    category: "Creative Tech",
-    year: "2025",
-    client: "Neura Labs Inc.",
-    tagline: "Real-time generative 3D sound visualizer with GLSL spectral shaders",
-    accentColor: "#d9f99d", // Acid lime
+    id: "ami-red-flag",
+    title: "Am I The Red Flag?",
+    category: "Experimental",
+    subCategory: "AI Behavioral Simulator",
+    year: "2026",
+    client: "Peaceorc Lab",
+    tagline: "AI-driven WhatsApp behavioral chat simulator for psychological dynamics, empathy, and emotional analysis",
+    accentColor: "#f43f5e", // Rose / Red Flag
+    image: "/projects/ami-redflag.jpg",
+    metrics: "1,200+ Assessment Sessions",
+    description: "An interactive AI chat simulator engineered to test emotional maturity, empathy, and interpersonal responses in real-time WhatsApp scenario dialogues with exportable digital ID report cards.",
+    techStack: ["AI Simulation", "JavaScript", "HTML5 Canvas", "Google Auth", "Dynamic Viewport", "Tailwind CSS"],
+    liveUrl: "https://ami.peaceorc.web.id",
+    githubUrl: "https://github.com/peaceorc",
+    featured: true,
+  },
+  {
+    id: "peace-oracle",
+    title: "Peace Oracle",
+    category: "Experimental",
+    subCategory: "WebGL Cosmic Portal",
+    year: "2026",
+    client: "Peaceorc Lab",
+    tagline: "Cosmic destiny portal featuring real-time WebGL space environments, Western Zodiac & Eastern Shio",
+    accentColor: "#a855f7", // Cosmic Purple
     image: "/projects/neura-spatial.jpg",
-    metrics: "3.2M+ Streams Visualized",
-    description: "An experimental audio-reactive browser installation that transforms ambient audio frequencies into fluid 3D geometric particle landscapes at persistent 60 FPS.",
-    techStack: ["React 19", "Three.js", "Web Audio API", "GLSL Shaders", "Tailwind CSS"],
-    liveUrl: "https://neura-spatial.example.com",
-    githubUrl: "https://github.com/peaceorc/neura-spatial",
+    metrics: "WebGL 60 FPS Canvas",
+    description: "An experiential astronomical gateway fusing ancient esoteric divination with real-time WebGL planetary canvas shaders and interactive celestial navigation.",
+    techStack: ["WebGL", "Three.js / Canvas", "Space Grotesk", "JavaScript", "CSS 3D Motion"],
+    liveUrl: "https://oracle.peaceorc.web.id",
+    githubUrl: "https://github.com/peaceorc",
     featured: true,
   },
   {
-    id: "aether-terminal",
-    title: "Aether Liquidity Terminal",
-    category: "Web3 & FinTech",
-    year: "2024",
-    client: "Aether Protocol",
-    tagline: "Sub-millisecond institutional order book with high-density canvas streaming",
-    accentColor: "#a855f7", // Electric purple
+    id: "kriptoyoi",
+    title: "KriptoYoi",
+    category: "Experimental",
+    subCategory: "Crypto Radar & Telemetry",
+    year: "2026",
+    client: "Peaceorc Lab",
+    tagline: "Sub-millisecond cryptocurrency trading terminal & radar telemetry with live Tokocrypto WebSocket streams",
+    accentColor: "#10b981", // Emerald
     image: "/projects/aether-terminal.jpg",
-    metrics: "<12ms Render Latency",
-    description: "A high-performance algorithmic trading interface engineered for crypto market makers and quantitative derivatives desks.",
-    techStack: ["React", "TypeScript", "HTML5 Canvas", "WebSockets", "Tailwind CSS"],
-    liveUrl: "https://aether-vault.example.com",
-    githubUrl: "https://github.com/peaceorc/aether-terminal",
-    featured: true,
-  },
-  {
-    id: "kinetic-foundry",
-    title: "Kinetic Physics Foundry",
-    category: "Creative Tech",
-    year: "2024",
-    client: "Open Source / Lab",
-    tagline: "Rigid-body 2D physics sandbox and micro-interaction laboratory",
-    accentColor: "#38bdf8", // Sky blue
-    image: "/projects/kinetic-foundry.jpg",
-    metrics: "1,200+ Interactive Stars",
-    description: "A developer toolkit and playground demonstrating how physical mechanics—gravity, friction, elasticity, and inertia—can elevate web navigation.",
-    techStack: ["React 19", "HTML5 Canvas API", "Verlet Physics", "Lenis", "Vite"],
-    liveUrl: "https://kinetic-foundry.example.com",
-    githubUrl: "https://github.com/peaceorc/kinetic-foundry",
+    metrics: "<10ms WebSocket Stream",
+    description: "High-density crypto intelligence dashboard streaming live tickers, TradingView Lightweight Charts, and real-time algorithmic radar signals.",
+    techStack: ["WebSockets", "Lightweight Charts", "Vanilla JS", "Live Telemetry", "HUD UI"],
+    liveUrl: "https://kriptoyoi.peaceorc.web.id",
+    githubUrl: "https://github.com/peaceorc",
     featured: true,
   }
 ];
@@ -183,8 +185,9 @@ export const capabilities = [
 export const teamMembers = [
   {
     id: "diki",
-    tag: "01 // HYBRID DESIGN ENGINEER",
+    tag: "01 // CREATIVE DEVELOPER & ARCHITECT",
     name: "Diki",
+    avatar: "/devs/diki.jpg",
     title: "Design Engineer & Systems Architect",
     role: "Creative Code, 3D Physics & UI/UX Architecture",
     accentColor: "#d9f99d", // Acid neon
@@ -192,32 +195,13 @@ export const teamMembers = [
     statusColor: "#10b981",
     bio: "Fluidly bridges Figma prototypes with production code. Obsessed with 60 FPS physics engines, spatial interaction design, and resilient backend micro-architectures.",
     superpower: "Spatial UI/UX + 3D Physics & Scalable Systems",
-    quote: "Design without code is just a still picture; code without design is just machine logic. We fuse both without compromise.",
+    quote: "Design without code is just a still picture; code without design is just machine logic. I fuse both without compromise.",
     terminalPrompt: "peaceorc@core:~$ figma-tokens sync && cargo build --release",
     stack: ["Figma Systems", "React 19", "Three.js / WebGL", "Rust & Go", "Tailwind CSS"],
     designStack: ["Figma Systems", "3D / Spatial UI", "Interaction Specs", "Design Tokens"],
     codeStack: ["React 19", "Three.js / WebGL", "Rust & Go", "Docker", "Tailwind CSS"],
     social: { github: "https://github.com/peaceorc", x: "https://x.com/peaceorc" },
     initialHighFives: 218,
-  },
-  {
-    id: "ridho",
-    tag: "02 // HYBRID DESIGN ENGINEER",
-    name: "Ridho",
-    title: "Design Engineer & Product Architect",
-    role: "Product Strategy, Design Systems & Full-Stack UI",
-    accentColor: "#a855f7", // Electric violet
-    status: "Architecting Tokens & Composable Code",
-    statusColor: "#a855f7",
-    bio: "Unites conversion-driven UX psychology and bespoke typography with modern component architecture, state management, and edge API engineering.",
-    superpower: "Atomic Design Systems + Modern Full-Stack Web",
-    quote: "When the designer also writes the production code, nothing ever gets lost in translation. The final build feels exactly as intended.",
-    terminalPrompt: "partner@core:~$ npm test --components && figma --audit=wcag-aaa",
-    stack: ["Design Systems", "TypeScript", "Next.js / React", "Conversion UX", "Framer Motion"],
-    designStack: ["Design Systems", "Conversion UX", "Bespoke Typography", "Micro-Interactions"],
-    codeStack: ["TypeScript", "Next.js / React", "Node & Edge APIs", "Framer Motion", "GraphQL/REST"],
-    social: { github: "https://github.com", x: "https://x.com" },
-    initialHighFives: 194,
   }
 ];
 

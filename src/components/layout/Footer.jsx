@@ -41,7 +41,7 @@ export default function Footer() {
           </h2>
 
           <p className="mt-6 text-base sm:text-lg text-zinc-400 font-sans max-w-xl">
-            Partner directly with two hybrid design engineers who code and design every layer of your product. Zero agency bloat, zero handover friction—let&apos;s build resilient web apps, bespoke design systems, and AI-accelerated platforms that drive real results.
+            Partner directly with a dedicated creative developer who codes and designs every layer of your product. Zero agency bloat, zero handover friction—let&apos;s build resilient web apps, bespoke design systems, and AI-accelerated platforms that drive real results.
           </p>
         </div>
 
