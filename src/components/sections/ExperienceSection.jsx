@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Terminal, Sparkles, ExternalLink, Cpu, Palette, Code2, Heart, CheckCircle2 } from 'lucide-react'
+import { Terminal, Sparkles, ExternalLink, Cpu, Palette, Code2, CheckCircle2, TerminalSquare } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { teamMembers } from '../../data/portfolioData'
 
@@ -41,11 +41,9 @@ export default function ExperienceSection() {
     terminalPrompt: "peaceorc@core:~$ figma-tokens sync && cargo build --release",
     designStack: ["Figma Systems", "3D / Spatial UI", "Interaction Specs", "Design Tokens"],
     codeStack: ["React 19", "Three.js / WebGL", "Rust & Go", "Docker", "Tailwind CSS"],
-    social: { github: "https://github.com/peaceorc", x: "https://x.com/peaceorc" },
-    initialHighFives: 218,
+    social: { github: "https://github.com/peaceorc", instagram: "https://www.instagram.com/diki.akbr/" },
   }
 
-  const [highFives, setHighFives] = useState(member.initialHighFives || 218)
   const [pipelineActive, setPipelineActive] = useState(false)
 
   const triggerPipelineBlast = () => {
@@ -58,17 +56,6 @@ export default function ExperienceSection() {
       colors: ['#d9f99d', '#38bdf8', '#ffffff', '#a855f7'],
     })
     setTimeout(() => setPipelineActive(false), 2000)
-  }
-
-  const handleHighFive = () => {
-    setHighFives((prev) => prev + 1)
-    playAudioSynth(750)
-    confetti({
-      particleCount: 25,
-      spread: 50,
-      origin: { y: 0.7, x: 0.8 },
-      colors: ['#d9f99d', '#ffffff'],
-    })
   }
 
   const workflowSteps = [
@@ -98,7 +85,7 @@ export default function ExperienceSection() {
       <div className="pb-12">
         <div className="max-w-2xl">
           <div className="flex items-center gap-2 text-xs font-mono text-[#d9f99d] tracking-widest uppercase mb-4">
-            <Cpu className="w-4 h-4 text-[#d9f99d]" />
+            <TerminalSquare className="w-4 h-4 text-[#d9f99d]" />
             <span>03 // Meet The Dev</span>
           </div>
           <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold uppercase tracking-tight text-white leading-[0.95]">
@@ -149,7 +136,7 @@ export default function ExperienceSection() {
           </div>
 
           {/* Interactive Terminal Command Line Snippet */}
-          <div 
+          <div
             onClick={triggerPipelineBlast}
             className="p-4 rounded-xl bg-[#09090b] border border-white/10 hover:border-[#d9f99d]/40 transition-all font-mono text-xs text-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer group shadow-lg shadow-black/40"
             title="Click to execute build pipeline ⚡"
@@ -160,7 +147,7 @@ export default function ExperienceSection() {
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <span className={`text-[10px] px-2 py-0.5 rounded font-mono transition-colors ${pipelineActive ? 'bg-[#d9f99d] text-black font-bold' : 'text-emerald-400 bg-emerald-500/10'}`}>
-                {pipelineActive ? 'EXECUTION COMPLETE ⚡' : '[60 FPS ACTIVE]'}
+                {pipelineActive ? 'EXECUTION COMPLETE' : '[60 FPS ACTIVE]'}
               </span>
             </div>
           </div>
@@ -175,40 +162,28 @@ export default function ExperienceSection() {
             &ldquo;{member.quote}&rdquo;
           </div>
 
-          {/* Minimal Profile Link & High-Five Counter */}
-          <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+          {/* Minimal Profile Link */}
+          <div className="pt-2 flex flex-wrap items-center gap-4">
+            <a
+              href={member.social.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors"
+            >
+              <span>GitHub / {member.name.toLowerCase()}</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            {(member.social.instagram || member.social.x) && (
               <a
-                href={member.social.github}
+                href={member.social.instagram || member.social.x}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors"
               >
-                <span>GitHub / {member.name.toLowerCase()}</span>
+                <span>Instagram</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
-              {member.social.x && (
-                <a
-                  href={member.social.x}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-[#d9f99d] transition-colors"
-                >
-                  <span>X (Twitter)</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              )}
-            </div>
-
-            <button
-              type="button"
-              onClick={handleHighFive}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-[#d9f99d] hover:text-black border border-white/10 hover:border-[#d9f99d] text-xs font-mono text-zinc-300 transition-all cursor-pointer group active:scale-95"
-              title="Give high-five"
-            >
-              <Heart className="w-3.5 h-3.5 text-rose-400 group-hover:text-black transition-colors" />
-              <span>High-Fives ({highFives})</span>
-            </button>
+            )}
           </div>
         </div>
 
@@ -257,17 +232,9 @@ export default function ExperienceSection() {
           </div>
 
           {/* Value Metric Banner */}
-          <div className="p-4 rounded-xl bg-gradient-to-r from-[#d9f99d]/10 via-sky-500/5 to-transparent border border-[#d9f99d]/20 flex items-center justify-between gap-4">
-            <div>
-              <p className="text-xs font-mono text-[#d9f99d] font-bold">100% UNBROKEN VISION</p>
-              <p className="text-[11px] text-zinc-400 font-sans mt-0.5">What is designed is precisely what gets compiled into production.</p>
-            </div>
-            <button
-              onClick={triggerPipelineBlast}
-              className="shrink-0 px-3 py-1.5 rounded-lg bg-[#d9f99d] text-black font-mono text-[10px] font-bold uppercase hover:bg-white transition-all cursor-pointer shadow-[0_0_15px_rgba(217,249,157,0.3)]"
-            >
-              RUN DEMO ⚡
-            </button>
+          <div className="p-4 rounded-xl bg-gradient-to-r from-[#d9f99d]/10 via-sky-500/5 to-transparent border border-[#d9f99d]/20">
+            <p className="text-xs font-mono text-[#d9f99d] font-bold">100% UNBROKEN VISION</p>
+            <p className="text-[11px] text-zinc-400 font-sans mt-0.5">What is designed is precisely what gets compiled into production.</p>
           </div>
         </div>
       </div>
@@ -276,7 +243,6 @@ export default function ExperienceSection() {
       <div className="mt-16 pt-8 border-t border-white/5">
         <div className="mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs font-mono text-[#d9f99d] tracking-widest uppercase">
-            <Sparkles className="w-4 h-4 text-[#d9f99d]" />
             <span>How I Build With You</span>
           </div>
           <span className="font-mono text-xs text-zinc-500">

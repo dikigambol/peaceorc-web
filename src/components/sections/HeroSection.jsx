@@ -272,7 +272,7 @@ export default function HeroSection() {
               className="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#d9f99d]/30 hover:border-[#d9f99d] bg-[#d9f99d]/10 hover:bg-[#d9f99d] text-xs font-mono font-semibold text-[#d9f99d] hover:text-black tracking-wider cursor-pointer transition-all active:scale-95 shadow-[0_0_15px_rgba(217,249,157,0.15)] hover:shadow-[0_0_25px_rgba(217,249,157,0.4)]"
               title="Just click me buddy!"
             >
-              <span>Roll Dice Please 🎲</span>
+              <span>Roll Dice Please</span>
             </button>
           </motion.div>
 
@@ -403,7 +403,7 @@ export default function HeroSection() {
                   onClick={handleLuckyJokeClick}
                   className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#d9f99d] text-black font-mono text-xs font-bold tracking-wider hover:bg-white transition-all active:scale-95 cursor-pointer shadow-[0_0_15px_rgba(217,249,157,0.3)]"
                 >
-                  <span>Roll Again 🎲</span>
+                  <span>Roll Again</span>
                 </button>
 
                 <a

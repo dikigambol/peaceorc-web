@@ -8,7 +8,7 @@ export const personalInfo = {
   timezone: "Asia/Jakarta",
   tagline: "Architecting tactile digital experiences, physics-driven interactions, and resilient modern web systems.",
   editorialBio: "Operating at the intersection of graphic precision and computer graphics. Every pixel carries intent; every interaction responds with weight, momentum, and tactile delight.",
-  contactEmail: "peaceorc@gmail.com",
+  contactEmail: "westlakewetland@gmail.com",
   stats: [
     { label: "Years Experience", value: "6+" },
     { label: "Shipped Projects", value: "35+" },
@@ -16,9 +16,9 @@ export const personalInfo = {
     { label: "Satisfaction Rate", value: "10/10" },
   ],
   socials: [
-    { name: "GitHub", url: "https://github.com/peaceorc", handle: "github/peaceorc" },
+    { name: "GitHub", url: "https://github.com/dikigambol", handle: "github/dikigambol" },
     { name: "LinkedIn", url: "https://linkedin.com/in/peaceorc", handle: "linkedin/peaceorc" },
-    { name: "X (Twitter)", url: "https://x.com/peaceorc", handle: "@peaceorc" },
+    { name: "Instagram", url: "https://www.instagram.com/diki.akbr/", handle: "@diki.akbr" },
     { name: "ReadCV", url: "https://read.cv/peaceorc", handle: "read.cv/peaceorc" },
   ]
 };
@@ -43,7 +43,7 @@ export const projects = [
     description: "An interactive AI chat simulator engineered to test emotional maturity, empathy, and interpersonal responses in real-time WhatsApp scenario dialogues with exportable digital ID report cards.",
     techStack: ["AI Simulation", "JavaScript", "HTML5 Canvas", "Google Auth", "Dynamic Viewport", "Tailwind CSS"],
     liveUrl: "https://ami.peaceorc.web.id",
-    githubUrl: "https://github.com/peaceorc",
+    githubUrl: "https://github.com/dikigambol/ami-redflag",
     featured: true,
   },
   {
@@ -55,12 +55,12 @@ export const projects = [
     client: "Peaceorc Lab",
     tagline: "Cosmic destiny portal featuring real-time WebGL space environments, Western Zodiac & Eastern Shio",
     accentColor: "#a855f7", // Cosmic Purple
-    image: "/projects/neura-spatial.jpg",
+    image: "/projects/oracle-peace.jpg",
     metrics: "WebGL 60 FPS Canvas",
     description: "An experiential astronomical gateway fusing ancient esoteric divination with real-time WebGL planetary canvas shaders and interactive celestial navigation.",
     techStack: ["WebGL", "Three.js / Canvas", "Space Grotesk", "JavaScript", "CSS 3D Motion"],
     liveUrl: "https://oracle.peaceorc.web.id",
-    githubUrl: "https://github.com/peaceorc",
+    githubUrl: "https://github.com/dikigambol/peace-oracle",
     featured: true,
   },
   {
@@ -72,12 +72,29 @@ export const projects = [
     client: "Peaceorc Lab",
     tagline: "Sub-millisecond cryptocurrency trading terminal & radar telemetry with live Tokocrypto WebSocket streams",
     accentColor: "#10b981", // Emerald
-    image: "/projects/aether-terminal.jpg",
+    image: "/projects/kriptoyoi.jpg",
     metrics: "<10ms WebSocket Stream",
     description: "High-density crypto intelligence dashboard streaming live tickers, TradingView Lightweight Charts, and real-time algorithmic radar signals.",
     techStack: ["WebSockets", "Lightweight Charts", "Vanilla JS", "Live Telemetry", "HUD UI"],
     liveUrl: "https://kriptoyoi.peaceorc.web.id",
-    githubUrl: "https://github.com/peaceorc",
+    githubUrl: "https://github.com/dikigambol/kriptoyoi",
+    featured: true,
+  },
+  {
+    id: "arshen",
+    title: "Arshen",
+    category: "Experimental",
+    subCategory: "UI Website",
+    year: "2026",
+    client: "Peaceorc Lab",
+    tagline: "A modern cafe website, with interactive 2D visuals.",
+    accentColor: "#ff9152ff", // Emerald
+    image: "/projects/arshen.jpg",
+    metrics: "Interactive 2D visuals",
+    description: "A modern cafe website, with interactive 2D visuals.",
+    techStack: ["HTML5 Canvas", "GSAP", "CSS Animations", "Vanilla JS", "Live Telemetry", "HUD UI"],
+    liveUrl: "https://arshen.peaceorc.web.id",
+    githubUrl: "https://github.com/dikigambol/arshen",
     featured: true,
   }
 ];
@@ -200,8 +217,7 @@ export const teamMembers = [
     stack: ["Figma Systems", "React 19", "Three.js / WebGL", "Rust & Go", "Tailwind CSS"],
     designStack: ["Figma Systems", "3D / Spatial UI", "Interaction Specs", "Design Tokens"],
     codeStack: ["React 19", "Three.js / WebGL", "Rust & Go", "Docker", "Tailwind CSS"],
-    social: { github: "https://github.com/peaceorc", x: "https://x.com/peaceorc" },
-    initialHighFives: 218,
+    social: { github: "https://github.com/dikigambol", instagram: "https://www.instagram.com/diki.akbr/" },
   }
 ];
 
