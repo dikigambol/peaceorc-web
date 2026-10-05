@@ -2,29 +2,7 @@ import { useState } from 'react'
 import { Terminal, Sparkles, ExternalLink, Cpu, Palette, Code2, CheckCircle2, TerminalSquare } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { teamMembers } from '../../data/portfolioData'
-
-// Procedural audio synth for interactive clicks
-function playAudioSynth(freq = 600) {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext
-    if (!AudioCtx) return
-    const ctx = new AudioCtx()
-    if (ctx.state === 'suspended') ctx.resume()
-    const osc = ctx.createOscillator()
-    const gain = ctx.createGain()
-    osc.type = 'triangle'
-    osc.frequency.setValueAtTime(freq, ctx.currentTime)
-    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.1)
-    gain.gain.setValueAtTime(0.08, ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1)
-    osc.connect(gain)
-    gain.connect(ctx.destination)
-    osc.start()
-    osc.stop(ctx.currentTime + 0.1)
-  } catch {
-    // Audio optional
-  }
-}
+import { playAudioSynth } from '../../utils/audio'
 
 export default function ExperienceSection() {
   const member = teamMembers[0] || {

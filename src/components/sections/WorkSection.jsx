@@ -3,53 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Code2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { projects, projectCategories } from '../../data/portfolioData'
 import TagBadge from '../common/TagBadge'
-
-// Procedural futuristic Web Audio sound synthesizer
-function playSliderSound(type = 'glitch') {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext
-    if (!AudioCtx) return
-    const ctx = new AudioCtx()
-    if (ctx.state === 'suspended') ctx.resume()
-    const now = ctx.currentTime
-
-    if (type === 'glitch') {
-      // Rapid stutter frequency glitch burst
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      osc.type = 'sawtooth'
-      osc.frequency.setValueAtTime(750, now)
-      osc.frequency.setValueAtTime(320, now + 0.03)
-      osc.frequency.setValueAtTime(1100, now + 0.06)
-      osc.frequency.setValueAtTime(450, now + 0.09)
-
-      gain.gain.setValueAtTime(0.06, now)
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14)
-
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      osc.start(now)
-      osc.stop(now + 0.15)
-    } else {
-      // Crisp UI navigation tick
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-      osc.type = 'sine'
-      osc.frequency.setValueAtTime(900, now)
-      osc.frequency.exponentialRampToValueAtTime(550, now + 0.04)
-
-      gain.gain.setValueAtTime(0.04, now)
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04)
-
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      osc.start(now)
-      osc.stop(now + 0.04)
-    }
-  } catch {
-    // Audio optional
-  }
-}
+import { playSliderSound } from '../../utils/audio'
 
 export default function WorkSection() {
   const [activeCategory, setActiveCategory] = useState('All')

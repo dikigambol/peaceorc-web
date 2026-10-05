@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Terminal, CheckCircle2, ArrowUpRight } from 'lucide-react'
 import confetti from 'canvas-confetti'
@@ -53,32 +53,20 @@ const LUCKY_JOKES = [
 ]
 
 
-// Playful procedural audio click synthesizer
-function playTextTone(freq = 600) {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext
-    if (!AudioCtx) return
-    const ctx = new AudioCtx()
-    if (ctx.state === 'suspended') ctx.resume()
-    const osc = ctx.createOscillator()
-    const gain = ctx.createGain()
-    osc.type = 'sine'
-    osc.frequency.setValueAtTime(freq, ctx.currentTime)
-    gain.gain.setValueAtTime(0.04, ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04)
-    osc.connect(gain)
-    gain.connect(ctx.destination)
-    osc.start()
-    osc.stop(ctx.currentTime + 0.04)
-  } catch {
-    // Audio optional
-  }
-}
+import { playTextTone } from '../../utils/audio'
 
 // Interactive Scrambling Letter
 function InteractiveLetter({ char }) {
   const [displayChar, setDisplayChar] = useState(char)
   const isHovered = useRef(false)
+  const timerRef = useRef(null)
+
+  useEffect(() => {
+    setDisplayChar(char)
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [char])
 
   const handleHover = () => {
     if (char === ' ' || isHovered.current) return
@@ -86,11 +74,12 @@ function InteractiveLetter({ char }) {
     playTextTone(500 + Math.random() * 600)
 
     let count = 0
-    const interval = setInterval(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
       setDisplayChar(GLYPHS[Math.floor(Math.random() * GLYPHS.length)])
       count++
       if (count > 5) {
-        clearInterval(interval)
+        clearInterval(timerRef.current)
         setDisplayChar(char)
         isHovered.current = false
       }
@@ -121,7 +110,7 @@ function InteractivePhrase({ text, className = '', suffix = null }) {
         return (
           <span key={`${word}-${wIdx}`} className="inline-flex items-center flex-nowrap whitespace-nowrap">
             {word.split('').map((c, cIdx) => (
-              <InteractiveLetter key={`${word}-${cIdx}`} char={c} />
+              <InteractiveLetter key={`${word}-${cIdx}-${c}`} char={c} />
             ))}
             {isLast && suffix}
           </span>
@@ -133,43 +122,24 @@ function InteractivePhrase({ text, className = '', suffix = null }) {
 
 export default function HeroSection() {
   const [roleIndex, setRoleIndex] = useState(0)
-  const [scramblingRole, setScramblingRole] = useState(ROLES[0])
+  const [isRoleHovered, setIsRoleHovered] = useState(false)
   const [activeJoke, setActiveJoke] = useState(null)
-  const roleIntervalRef = useRef(null)
 
-  const triggerRoleCycle = useCallback(() => {
-    const nextIndex = (roleIndex + 1) % ROLES.length
-    setRoleIndex(nextIndex)
-    const targetWord = ROLES[nextIndex]
+  // Auto-cycle role every 1 second with smooth transition (pauses while user hovers to explore letters)
+  useEffect(() => {
+    if (isRoleHovered) return
 
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % ROLES.length)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [isRoleHovered])
+
+  const handleRoleClick = () => {
     playTextTone(800)
-    confetti({
-      particleCount: 25,
-      spread: 50,
-      origin: { y: 0.35, x: 0.5 },
-      colors: ['#d9f99d', '#38bdf8', '#ffffff'],
-    })
-
-    let step = 0
-    clearInterval(roleIntervalRef.current)
-    roleIntervalRef.current = setInterval(() => {
-      setScramblingRole(
-        targetWord
-          .split('')
-          .map((c, i) => {
-            if (i < step) return targetWord[i]
-            return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
-          })
-          .join('')
-      )
-      playTextTone(400 + step * 60)
-      step += 0.7
-      if (step >= targetWord.length) {
-        clearInterval(roleIntervalRef.current)
-        setScramblingRole(targetWord)
-      }
-    }, 40)
-  }, [roleIndex])
+    setRoleIndex((prev) => (prev + 1) % ROLES.length)
+  }
 
   const handleLuckyJokeClick = () => {
     playTextTone(900)
@@ -188,13 +158,9 @@ export default function HeroSection() {
     }
     setActiveJoke(nextJoke)
 
-    // Also cycle the role dynamically
-    triggerRoleCycle()
+    // Advance role to next
+    setRoleIndex((prev) => (prev + 1) % ROLES.length)
   }
-
-  useEffect(() => {
-    return () => clearInterval(roleIntervalRef.current)
-  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -243,24 +209,40 @@ export default function HeroSection() {
             </motion.h1>
           </div>
 
-          {/* Row 2: DYNAMIC RECOMPILABLE ROLE */}
-          <div className="overflow-hidden">
+          {/* Row 2: DYNAMIC RECOMPILABLE ROLE (Smooth Auto-cycle every 1s) */}
+          <div className="overflow-hidden min-h-[1.15em] flex items-center">
             <motion.h1
               variants={itemVariants}
               className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold uppercase tracking-tight text-zinc-400 hover:text-white transition-colors leading-[0.96] flex flex-wrap items-center"
             >
-              <span
-                onClick={triggerRoleCycle}
-                className="cursor-pointer group inline-flex items-center hover:text-[#d9f99d] transition-colors"
-                title="Click to cycle role!"
+              <div
+                onClick={handleRoleClick}
+                onMouseEnter={() => setIsRoleHovered(true)}
+                onMouseLeave={() => setIsRoleHovered(false)}
+                className="cursor-pointer group inline-flex items-center hover:text-[#d9f99d] transition-colors relative"
+                title="Cycles every 1s. Click to cycle immediately!"
               >
-                <InteractivePhrase
-                  text={scramblingRole}
-                  suffix={
-                    <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 ml-2 sm:ml-3 rounded-full bg-[#d9f99d] inline-block group-hover:scale-150 transition-transform animate-pulse shrink-0 self-center" />
-                  }
-                />
-              </span>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={ROLES[roleIndex]}
+                    initial={{ opacity: 0, y: 14, filter: 'blur(4px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, y: -14, filter: 'blur(4px)' }}
+                    transition={{
+                      duration: 0.25,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="inline-flex items-center"
+                  >
+                    <InteractivePhrase
+                      text={ROLES[roleIndex]}
+                      suffix={
+                        <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 ml-2 sm:ml-3 rounded-full bg-[#d9f99d] inline-block group-hover:scale-150 transition-transform animate-pulse shrink-0 self-center" />
+                      }
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </motion.h1>
           </div>
 
