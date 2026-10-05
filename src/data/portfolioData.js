@@ -30,6 +30,23 @@ export const projectCategories = [
 
 export const projects = [
   {
+    id: "peaceamp",
+    title: "PeaceAmp",
+    category: "Experimental",
+    subCategory: "Analog Guitar Processor & DSP",
+    year: "2026",
+    client: "Peaceorc Lab",
+    tagline: "Zero-latency real-time analog modeling guitar processor & modular virtual pedalboard",
+    accentColor: "#f59e0b", // Vintage Amber / Gold
+    image: "/projects/peaceamp.png",
+    metrics: "Zero-Latency Web Audio DSP",
+    description: "A browser-based real-time guitar effects processor and modular virtual pedalboard featuring vintage analog preamp emulation, cabinet impulse responses (IR), dynamic distortion curves, modulation stompboxes, and MIDI controller integration.",
+    techStack: ["Web Audio API", "DSP / AudioNodes", "React", "Canvas Cables", "Web MIDI", "Tailwind CSS"],
+    liveUrl: "https://amp.peaceorc.web.id",
+    githubUrl: "https://github.com/dikigambol/PeaceAmp-Guitar-FX-Studio",
+    featured: true,
+  },
+  {
     id: "ami-red-flag",
     title: "Am I The Red Flag?",
     category: "Experimental",
